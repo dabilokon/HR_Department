@@ -1,0 +1,213 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Відділ кадрів</title>
+    <link rel="stylesheet" href="css/site.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h1>ВІДДІЛ КАДРІВ</h1>
+                        <h3>Додати співробітника</h3>
+                        <form action="javascript:void(0);" method="POST" onsubmit="addStaffs()">
+                            <input type="text" id="add-name" placeholder="Ім'я">
+                            <input type="text" id="add-position" placeholder="Посада">
+                            <input type="text" id="add-shedule" placeholder="Розклад">
+                            <input type="text" id="add-salary" placeholder="Заробітна плата">
+                            <select id="add-department" placeholder="Відділ"></select>
+                            <input type="submit" value="Add">
+                        </form>
+
+                        <div id="EditStaff" style="display:none">
+                            <h3>Редагування картки співробітника</h3>
+                            <form action="javascript:void(0);" onsubmit="updateStaffs()">
+                                <input type="hidden" id="edit-id" placeholder="Id">
+                                <input type="text" id="edit-name" placeholder="Ім'я">
+                                <input type="text" id="edit-position" placeholder="Посада">
+                                <input type="text" id="edit-shedule" placeholder="Розклад">
+                                <input type="text" id="edit-salary" placeholder="Заробітна плата">
+                                <select id="edit-department" placeholder="Відділ"></select>
+                                <input type="submit" value="Save">
+                                <a onclick="closeStaffInput()" aria-label="Close">&#10006;</a>
+                            </form>
+                        </div>
+
+                        <h3>Таблиця співробітників</h3>
+                        <p></p>
+
+
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Ім'я</th>
+                                <th>Посада</th>
+                                <th>Розклад</th>
+                                <th>Заробітна плата</th>
+                                <th>Відділ</th>
+                                <th>Редагування</th>
+                                <th>Видалення</th>
+                            </tr>
+                            <tbody id="Staffs"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h1>ДЕПАРТАМЕНТИ</h1>
+                        <h3>Додати Департамент</h3>
+                        <form action="javascript:void(0);" method="POST" onsubmit="addDepartments()">
+                            <input type="text" id="add-nam" placeholder="Назва">
+                            <input type="text" id="add-description" placeholder="Опис">
+                            <input type="text" id="add-employeesNum" placeholder="Кількість">
+                            <input type="submit" value="Add">
+                        </form>
+
+                        <div id="EditDepartments" style="display:none">
+                            <h3>Редагування таблиці департаментів</h3>
+                            <form action="javascript:void(0);" onsubmit="updateDepartments()">
+                                <input type="hidden" id="edit-idd" placeholder="Id">
+                                <input type="text" id="edit-nam" placeholder="Назва">
+                                <input type="text" id="edit-description" placeholder="Опис">
+                                <input type="text" id="edit-employeesNum" placeholder="Кількість">
+                                <input type="submit" value="Save">
+                                <a onclick="closeDepartmentInput()" aria-label="Close">&#10006;</a>
+                            </form>
+                        </div>
+
+                        <h3>Таблиця Департаментів</h3>
+                        <p></p>
+                        <table>
+                            <tr>
+                                <th>ID</th>
+                                <th>Назва Департаменту</th>
+                                <th>Опис</th>
+                                <th>Кількість співробітників</th>
+                                <th>Редагування</th>
+                                <th>Видалення</th>
+                            </tr>
+                            <tbody id="Departments"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+            </div>
+            <div class="col">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h1>ТАБЛИЦЯ ПРОЄКТІВ</h1>
+                        <h3>Додати проєкт</h3>
+                        <form action="javascript:void(0);" method="POST" onsubmit="addProject()">
+                            <input type="text" id="addproject-name" placeholder="Ім'я">
+                            <input type="submit" value="Add">
+                        </form>
+
+                        <div id="EditProjectStaff" style="display:none">
+                            <h3>Додати виконавця до проєкту </h3>
+                            <form action="javascript:void(0);" method="POST" onsubmit="addProjectStaff()">
+                                <select id="addproject-staff" placeholder="Виконавець"></select>
+
+                                <input type="submit" value="Add">
+                                <button type="button" onclick="CloseEditProjectStaffForm()">Close</button>
+
+                            </form>
+                            <table>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Ім'я виконавця</th>
+                                    <th>Видалення</th>
+                                </tr>
+                                <tbody id="ProjectsStaff"></tbody>
+                            </table>
+                        </div>
+
+
+
+                        <div id="EditProject" style="display:none">
+                            <h3>Редагування картки проєктів</h3>
+                            <form action="javascript:void(0);" onsubmit="updateProject()">
+                                <input type="hidden" id="editproject-id" placeholder="Id">
+                                <input type="text" id="editproject-name" placeholder="Ім'я">
+                                <input type="submit" value="Save">
+                                <a onclick="closeProjectInput()" aria-label="Close">&#10006;</a>
+                            </form>
+                        </div>
+
+                        <h3>Таблиця проєктів</h3>
+                        <p></p>
+                        <table class="w-100">
+                            <tr>
+                                <th>ID</th>
+                                <th>Назва проєкту</th>
+                                <th>Редагування</th>
+                                <th>Видалення</th>
+                            </tr>
+                            <tbody id="Projects"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class=" row">
+            <div class="col col-12">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h1>Зведена таблиця(із 3)</h1>
+                        <table class="w-100">
+                            <tr>
+                                <th>ID</th>
+                                <th>Ім'я</th>
+                                <th>Посада</th>
+                                <th>Назва департаменту</th>
+                                <th>Назва проєкту</th>
+                            </tr>
+                            <tbody id="StaffDepProj"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class=" row">
+            <div class="col col-12">
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h1>Таблиця складний запит</h1>
+                        <table class="w-100">
+                            <tr>
+                                <th>ID</th>
+                                <th>Посада</th>
+                                <th>Ім'я співробітника</th>
+                            </tr>
+                            <tbody id="AllStaffDepProj"></tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <script src="js/lab2.js" asp-append-version="true"></script>
+    <script src="js/lab3.js" asp-append-version="true"></script>
+    <script src="js/Project.js" asp-append-version="true"></script>
+    <script src="js/StaffDepProj.js" asp-append-version="true"></script>
+    <script src="js/AllStaffDepProj.js" asp-append-version="true"></script>
+    
+
+</body>
+</html>
